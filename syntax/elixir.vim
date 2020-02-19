@@ -1,7 +1,8 @@
+if exists("b:current_syntax") && b:current_syntax != "slime"
+  finish
+endif
+
 if !exists("main_syntax")
-  if exists("b:current_syntax")
-    finish
-  endif
   let main_syntax = "elixir"
 endif
 
@@ -107,9 +108,13 @@ syn region elixirSigil matchgroup=elixirSigilDelimiter start=+\~\a\z('''\)+ end=
 
 
 " LiveView Sigils surrounded with ~L"""
-syntax include @HTML syntax/html.vim
-unlet b:current_syntax
-syntax region elixirLiveViewSigil matchgroup=elixirSigilDelimiter keepend start=+\~L\z("""\)+ end=+^\s*\z1+ skip=+\\"+ contains=@HTML fold
+" syntax include @HTML syntax/html.vim
+if exists("b:current_syntax") && b:current_syntax == "slime"
+  let b:current_syntax = "elixir"
+endif
+syntax include @slime syntax/slime.vim
+unlet! b:current_syntax
+syntax region elixirLiveViewSigil matchgroup=elixirSigilDelimiter keepend start=+\~l\z("""\)+ end=+^\s*\z1+ skip=+\\"+ contains=@slime fold
 
 
 " Documentation
@@ -235,9 +240,11 @@ hi def link elixirPrivateRecordDeclaration   elixirRecordDeclaration
 
 let b:current_syntax = "elixir"
 
-if main_syntax == "elixir"
-  unlet main_syntax
-endif
+" if main_syntax == "elixir"
+"   unlet main_syntax
+" endif
 
-let &cpo = s:cpo_save
-unlet s:cpo_save
+if exists("s.cpo_save")
+    let &cpo = s:cpo_save
+    unlet s:cpo_save
+endif
