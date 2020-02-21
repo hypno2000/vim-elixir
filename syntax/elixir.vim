@@ -19,7 +19,8 @@ syn keyword elixirTodo FIXME NOTE TODO OPTIMIZE XXX HACK contained
 
 syn match elixirId '\<[_a-zA-Z]\w*[!?]\?\>' contains=elixirUnusedVariable
 
-syn match elixirKeyword '\(\.\)\@<!\<\(for\|case\|when\|with\|cond\|if\|unless\|try\|receive\|after\|rescue\|catch\|else\|quote\|unquote\|super\|unquote_splicing\)\>:\@!'
+" syn match elixirKeyword '\(\.\)\@<!\<\(for\|case\|when\|with\|cond\|if\|unless\|try\|receive\|after\|rescue\|catch\|else\|quote\|unquote\|super\|unquote_splicing\)\>:\@!'
+syn keyword elixirKeyword for case when with cond if unless try receive after rescue catch else quote unquote super unquote_splicing
 
 syn keyword elixirInclude import require alias use
 
@@ -50,6 +51,7 @@ syn keyword elixirBoolean true false nil
 
 syn match elixirVariable '@[a-z]\w*'
 syn match elixirVariable '&\d\+'
+syn match elixirFunctionCall '[a-z]\w*' nextgroup=elixirArguments
 
 syn keyword elixirPseudoVariable __FILE__ __DIR__ __MODULE__ __ENV__ __CALLER__ __STACKTRACE__
 
@@ -85,7 +87,7 @@ syn match elixirString             "\(\w\)\@<!?\%(\\\(x\d{1,2}\|\h{1,2}\h\@!\>\|
 syn region elixirBlock              matchgroup=elixirBlockDefinition start="\<do\>:\@!" end="\<end\>" contains=ALLBUT,@elixirNotTop fold
 syn region elixirAnonymousFunction  matchgroup=elixirBlockDefinition start="\<fn\>"     end="\<end\>" contains=ALLBUT,@elixirNotTop fold
 
-syn region elixirArguments start="(" end=")" contained contains=elixirOperator,elixirAtom,elixirPseudoVariable,elixirAlias,elixirBoolean,elixirVariable,elixirUnusedVariable,elixirNumber,elixirDocString,elixirAtomInterpolated,elixirRegex,elixirString,elixirStringDelimiter,elixirRegexDelimiter,elixirInterpolationDelimiter,elixirSigil,elixirAnonymousFunction,elixirComment
+syn region elixirArguments start="(" end=")" contained contains=elixirOperator,elixirAtom,elixirPseudoVariable,elixirAlias,elixirBoolean,elixirVariable,elixirUnusedVariable,elixirNumber,elixirDocString,elixirAtomInterpolated,elixirRegex,elixirString,elixirStringDelimiter,elixirRegexDelimiter,elixirInterpolationDelimiter,elixirSigil,elixirAnonymousFunction,elixirComment,elixirFunctionCall
 
 syn match elixirDelimEscape "\\[(<{\[)>}\]/\"'|]" transparent display contained contains=NONE
 
@@ -203,6 +205,7 @@ hi def link elixirExUnitMacro                Define
 hi def link elixirModuleDeclaration          Type
 hi def link elixirPrivateFunctionDeclaration elixirFunctionDeclaration
 hi def link elixirFunctionDeclaration        Function
+hi def link elixirFunctionCall               Function
 hi def link elixirPrivateMacroDeclaration    elixirMacroDeclaration
 hi def link elixirMacroDeclaration           Macro
 hi def link elixirInclude                    Include
@@ -229,6 +232,7 @@ hi def link elixirRegexCharClass             elixirSpecial
 hi def link elixirRegexQuantifier            elixirSpecial
 hi def link elixirSpecial                    Special
 hi def link elixirString                     String
+hi def link elixirStringDelimiter            String
 hi def link elixirSigil                      String
 hi def link elixirDocStringDelimiter         elixirStringDelimiter
 hi def link elixirDocSigilDelimiter          elixirSigilDelimiter
