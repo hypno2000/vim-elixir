@@ -17,10 +17,12 @@ syn cluster elixirDeclaration contains=elixirFunctionDeclaration,elixirPrivateFu
 syn match elixirComment '#.*' contains=elixirTodo,@Spell
 syn keyword elixirTodo FIXME NOTE TODO OPTIMIZE XXX HACK contained
 
-syn match elixirId '\<[_a-zA-Z]\w*[!?]\?\>' contains=elixirUnusedVariable
+syn match elixirId '\<[_a-zA-Z]\w*\>[!?]\?' contains=elixirUnusedVariable
+syn match elixirFunctionCall '\<[_a-zA-Z]\w*[!?]\?\>('me=e-1 nextgroup=elixirArguments
+syn region elixirMacroCallBlock matchgroup=elixirMacroCall start='\<[_a-zA-Z]\w*[!?]\?\> ' end=" do"me=e-2 oneline nextgroup=elixirBlock skipwhite skipnl contains=elixirOperator,elixirAtom,elixirPseudoVariable,elixirAlias,elixirBoolean,elixirVariable,elixirUnusedVariable,elixirNumber,elixirDocString,elixirAtomInterpolated,elixirRegex,elixirString,elixirStringDelimiter,elixirRegexDelimiter,elixirInterpolationDelimiter,elixirSigil,elixirAnonymousFunction,elixirComment,elixirFunctionCall,elixirId
 
-" syn match elixirKeyword '\(\.\)\@<!\<\(for\|case\|when\|with\|cond\|if\|unless\|try\|receive\|after\|rescue\|catch\|else\|quote\|unquote\|super\|unquote_splicing\)\>:\@!'
-syn keyword elixirKeyword for case when with cond if unless try receive after rescue catch else quote unquote super unquote_splicing
+" syn match elixirKeyword '\(\.\)\@<!\<\(for\|case\|when\|with\|cond\|if\|unless\|try\|receive\|after\|rescue\|catch\|else\|quote\|unquote\|super\|unquote_splicing|raise|reraise\)\>:\@!'
+syn keyword elixirKeyword for case when with cond if unless try receive after rescue catch else quote unquote super unquote_splicing raise reraise
 
 syn keyword elixirInclude import require alias use
 
@@ -49,9 +51,10 @@ syn match   elixirAtom "\%([a-zA-Z_]\w*[?!]\?\):\(:\)\@!"
 
 syn keyword elixirBoolean true false nil
 
+" syn match elixirFunctionCall '@[a-z]\w*' nextgroup=elixirArguments
+" syn match elixirFunctionCall '&\d\+' nextgroup=elixirArguments
 syn match elixirVariable '@[a-z]\w*'
 syn match elixirVariable '&\d\+'
-syn match elixirFunctionCall '[a-z]\w*' nextgroup=elixirArguments
 
 syn keyword elixirPseudoVariable __FILE__ __DIR__ __MODULE__ __ENV__ __CALLER__ __STACKTRACE__
 
@@ -87,7 +90,7 @@ syn match elixirString             "\(\w\)\@<!?\%(\\\(x\d{1,2}\|\h{1,2}\h\@!\>\|
 syn region elixirBlock              matchgroup=elixirBlockDefinition start="\<do\>:\@!" end="\<end\>" contains=ALLBUT,@elixirNotTop fold
 syn region elixirAnonymousFunction  matchgroup=elixirBlockDefinition start="\<fn\>"     end="\<end\>" contains=ALLBUT,@elixirNotTop fold
 
-syn region elixirArguments start="(" end=")" contained contains=elixirOperator,elixirAtom,elixirPseudoVariable,elixirAlias,elixirBoolean,elixirVariable,elixirUnusedVariable,elixirNumber,elixirDocString,elixirAtomInterpolated,elixirRegex,elixirString,elixirStringDelimiter,elixirRegexDelimiter,elixirInterpolationDelimiter,elixirSigil,elixirAnonymousFunction,elixirComment,elixirFunctionCall
+syn region elixirArguments start="(" end=")" contained contains=elixirOperator,elixirAtom,elixirPseudoVariable,elixirAlias,elixirBoolean,elixirVariable,elixirUnusedVariable,elixirNumber,elixirDocString,elixirAtomInterpolated,elixirRegex,elixirString,elixirStringDelimiter,elixirRegexDelimiter,elixirInterpolationDelimiter,elixirSigil,elixirAnonymousFunction,elixirComment,elixirFunctionCall,elixirId
 
 syn match elixirDelimEscape "\\[(<{\[)>}\]/\"'|]" transparent display contained contains=NONE
 
@@ -218,7 +221,9 @@ hi def link elixirAtom                       Constant
 hi def link elixirPseudoVariable             Constant
 hi def link elixirAlias                      Type
 hi def link elixirBoolean                    Boolean
+hi def link elixirId                         Identifier
 hi def link elixirVariable                   Identifier
+hi def link elixirArguments                  Identifier
 hi def link elixirSelf                       Identifier
 hi def link elixirUnusedVariable             Comment
 hi def link elixirNumber                     Number
