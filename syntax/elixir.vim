@@ -18,8 +18,8 @@ syn match elixirComment '#.*' contains=elixirTodo,@Spell
 syn keyword elixirTodo FIXME NOTE TODO OPTIMIZE XXX HACK contained
 
 syn match elixirId '\<[_a-zA-Z]\w*\>[!?]\?' contains=elixirUnusedVariable
-syn match elixirFunctionCall '\<[_a-zA-Z]\w*[!?]\?\>('me=e-1 nextgroup=elixirArguments
-syn region elixirMacroCallBlock matchgroup=elixirMacroCall start='\<[_a-zA-Z]\w*[!?]\?\> ' end=" do"me=e-2 oneline nextgroup=elixirBlock skipwhite skipnl contains=elixirOperator,elixirAtom,elixirPseudoVariable,elixirAlias,elixirBoolean,elixirVariable,elixirUnusedVariable,elixirNumber,elixirDocString,elixirAtomInterpolated,elixirRegex,elixirString,elixirStringDelimiter,elixirRegexDelimiter,elixirInterpolationDelimiter,elixirSigil,elixirAnonymousFunction,elixirComment,elixirFunctionCall,elixirId
+syn match elixirFunctionCall '\<[_a-zA-Z]\w*\>[!?]\?('me=e-1 nextgroup=elixirArguments
+syn region elixirMacroCallBlock matchgroup=elixirMacroCall start='\<[_a-zA-Z]\w*\>[!?]\? ' end=" do"me=e-2 oneline nextgroup=elixirBlock skipwhite skipnl contains=elixirOperator,elixirAtom,elixirPseudoVariable,elixirAlias,elixirBoolean,elixirVariable,elixirUnusedVariable,elixirNumber,elixirDocString,elixirAtomInterpolated,elixirRegex,elixirString,elixirStringDelimiter,elixirRegexDelimiter,elixirInterpolationDelimiter,elixirSigil,elixirAnonymousFunction,elixirComment,elixirFunctionCall,elixirId
 
 " syn match elixirKeyword '\(\.\)\@<!\<\(for\|case\|when\|with\|cond\|if\|unless\|try\|receive\|after\|rescue\|catch\|else\|quote\|unquote\|super\|unquote_splicing|raise|reraise\)\>:\@!'
 syn keyword elixirKeyword for case when with cond if unless try receive after rescue catch else quote unquote super unquote_splicing raise reraise
